@@ -1,0 +1,17 @@
+# Секреты
+.env
+
+# Сгенерированные графики (у каждого свои, не нужны в репозитории)
+static/charts/*.png
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+
+# Разное
+.DS_Store
+.idea/
+.vscode/

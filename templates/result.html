@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.login }} — GitHub Analyzer</title>
+    <style>
+        body {
+            font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            margin: 0;
+            padding: 30px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        .profile {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .profile img { width: 90px; height: 90px; border-radius: 50%; }
+        .profile h2 { margin: 0 0 4px; }
+        .profile p { margin: 2px 0; color: #8b949e; }
+        .stats { display: flex; gap: 16px; margin-top: 10px; }
+        .stat { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 8px 14px; }
+        .stat b { display: block; font-size: 18px; }
+        .charts { display: flex; flex-wrap: wrap; gap: 20px; }
+        .chart-box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 16px;
+            flex: 1 1 380px;
+        }
+        .chart-box img { width: 100%; border-radius: 8px; }
+        a.back { color: #58a6ff; text-decoration: none; }
+        a.repo-link { color: #58a6ff; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a class="back" href="{{ url_for('index') }}">← Проверить другого пользователя</a>
+
+    <div class="profile">
+        <img src="{{ user.avatar_url }}" alt="avatar">
+        <div>
+            <h2>{{ user.name or user.login }} (@{{ user.login }})</h2>
+            <p>{{ user.bio or '' }}</p>
+            <div class="stats">
+                <div class="stat"><b>{{ stats.total_repos }}</b>репозиториев</div>
+                <div class="stat"><b>{{ stats.total_stars }}</b>звёзд всего</div>
+                <div class="stat"><b>{{ user.followers }}</b>подписчиков</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="charts">
+        {% if languages_chart %}
+        <div class="chart-box">
+            <img src="{{ url_for('static', filename=languages_chart) }}">
+        </div>
+        {% endif %}
+
+        {% if stars_chart %}
+        <div class="chart-box">
+            <img src="{{ url_for('static', filename=stars_chart) }}">
+        </div>
+        {% endif %}
+
+        {% if activity_chart %}
+        <div class="chart-box">
+            <img src="{{ url_for('static', filename=activity_chart) }}">
+        </div>
+        {% endif %}
+    </div>
+
+    {% if not languages_chart and not stars_chart and not activity_chart %}
+        <p style="color:#8b949e; margin-top:20px;">
+            Недостаточно данных для построения графиков — у пользователя нет публичных репозиториев.
+        </p>
+    {% endif %}
+</div>
+</body>
+</html>
