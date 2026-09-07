@@ -21,7 +21,7 @@ Python 3.11+, Flask, requests (GitHub REST API), pandas, matplotlib
 
 1. Клонируй репозиторий:
    ```bash
-   git clone https://github.com/твой_username/github-profile-analyzer.git
+   git clone https://github.com/munstad/github-profile-analyzer
    cd github-profile-analyzer
    ```
 
